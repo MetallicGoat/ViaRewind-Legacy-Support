@@ -11,19 +11,32 @@ import org.bukkit.util.Vector;
 
 public class BounceListener implements Listener {
 
-	@EventHandler
-	public void onPlayerMove(PlayerMoveEvent e) {
-		if (e.getTo().getY()>=e.getFrom().getY()) return;
-		Player player = e.getPlayer();
-		if (Via.getAPI().getPlayerVersion(player)>5) return;
-		if (Math.floor(e.getTo().getY()) + 0.01 < e.getTo().getY()) return;
-		if (player.isSneaking()) return;
-		Block block = e.getTo().clone().add(0, -0.1, 0).getBlock();
-		if (block.getType()!=Material.SLIME_BLOCK) return;
-		Vector velocity = player.getVelocity();
-		double motY = (e.getTo().getY()-e.getFrom().getY());
-		if (motY>-0.11) return;
-		velocity.setY(-motY * 1.05);
-		player.setVelocity(velocity);
-	}
+  @EventHandler
+  public void onPlayerMove(PlayerMoveEvent e) {
+    if (e.getTo().getY() >= e.getFrom().getY())
+      return;
+
+    Player player = e.getPlayer();
+
+    if (Via.getAPI().getPlayerVersion(player) > 5)
+      return;
+
+    if (Math.floor(e.getTo().getY()) + 0.01 < e.getTo().getY())
+      return;
+
+    if (player.isSneaking())
+      return;
+
+    Block block = e.getTo().clone().add(0, -0.1, 0).getBlock();
+    if (block.getType() != Material.SLIME_BLOCK)
+      return;
+
+    Vector velocity = player.getVelocity();
+    double motY = (e.getTo().getY() - e.getFrom().getY());
+    if (motY > -0.11)
+      return;
+
+    velocity.setY(-motY * 1.05);
+    player.setVelocity(velocity);
+  }
 }

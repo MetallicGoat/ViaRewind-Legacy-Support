@@ -27,17 +27,6 @@ public class NMSReflection {
                 protocolVersion;
     }
 
-    public static Class<?> getBlockDataClass() {
-        try {
-            if (getProtocolVersion() >= PROTOCOL_1_17) {
-                return Class.forName("net.minecraft.world.level.block.state.IBlockData");
-            }
-            return getLegacyNMSClass("IBlockData");
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
 
     public static Class<?> getBlockPositionClass() {
         try {
@@ -114,15 +103,6 @@ public class NMSReflection {
 
     public static Class<?> getLegacyNMSClass(String name) throws ClassNotFoundException {
         return Class.forName("net.minecraft.server." + getVersion() + "." + name);
-    }
-
-    public static Class<?> getCraftBukkitClass(String name) {
-        try {
-            return Class.forName("org.bukkit.craftbukkit." + getVersion() + "." + name);
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-        return null;
     }
 
     public static void sendPacket(Player player, Object packet) {

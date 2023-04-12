@@ -15,6 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class BukkitPlugin extends JavaPlugin {
+
 	private static BukkitPlugin instance;
 
 	@Override
@@ -28,8 +29,12 @@ public class BukkitPlugin extends JavaPlugin {
 			@Override
 			public void run() {
 				int serverProtocol = Via.getAPI().getServerVersion().lowestSupportedVersion();
-				if (serverProtocol == -1) return;
+
+				if (serverProtocol == -1)
+					return;
+
 				cancel();
+
 				if (serverProtocol > 5 && config.getBoolean("enchanting-gui-fix"))
 					Bukkit.getPluginManager().registerEvents(new EnchantingListener(), BukkitPlugin.this);
 				if (serverProtocol > 78 && config.getBoolean("brewing-stand-gui-fix"))
